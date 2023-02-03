@@ -28,6 +28,14 @@ app.on("ready", () => {
   ipcMain.on("key:inputValue", (err, data) => {
     console.log(data);
   });
+
+  ipcMain.on("key:newWindow", () => {
+    createWindow();
+  });
+
+  mainWindow.on("closed", () => {
+    app.quit();
+  });
 });
 
 const mainMenuTemplate = [
@@ -72,5 +80,25 @@ if (process.env.NODE_ENV !== "production") {
         role: "reload",
       },
     ],
+  });
+}
+
+function createWindow() {
+  addWindow = new BrowserWindow({
+    width: 482,
+    height: 200,
+    title: "Ynei bir pencere",
+  });
+
+  addWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, "modal.html"),
+      protocol: "file:",
+      slashes: true,
+    })
+  );
+
+  addWindow.on("close", () => {
+    addWindow = null;
   });
 }

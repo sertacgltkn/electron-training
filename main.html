@@ -8,10 +8,19 @@
     <link rel="stylesheet" href="assets/bootstrap.min.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="container pt-5">
       <h1 class="text-center">sertacgltkn || electron.js</h1>
-      <input type="text" id="value">
-      <button class="btn btn-primary" id="sendBtn">Gönder</button>
+      <div class="row">
+        <div class="col-md-8 offset-2 pt-2">
+          <input type="text" id="value" />
+          <button class="btn btn-primary" id="sendBtn">Gönder</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 offset-2 pt-2">
+          <button class="btn btn-warning" id="openNewBtn">Yeni bir Pencere Aç</button>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -20,6 +29,11 @@
 
       let sendBtn = document.querySelector("#sendBtn");
       let inputValue = document.querySelector("#value");
+      let openNewBtn = document.querySelector("#openNewBtn")
+
+      openNew.addEventListener("click",()=>{
+        ipcRenderer.send("key:newWindow")
+      })
       sendBtn.addEventListener("click", () => {
         // ipcRenderer.send("key", "sertacgltkn || electron.js");
         ipcRenderer.send("key:inputValue", inputValue.value);
